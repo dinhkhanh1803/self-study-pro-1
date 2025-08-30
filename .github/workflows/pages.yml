@@ -2,7 +2,12 @@ name: Deploy GitHub Pages
 
 on:
   workflow_dispatch:   # 👉 chỉ build khi bạn bấm nút "Run workflow"
-
+  
+permissions:
+  contents: read
+  pages: write
+  id-token: write   # ✅ thêm quyền này để deploy được
+  
 jobs:
   deploy:
     runs-on: ubuntu-latest
