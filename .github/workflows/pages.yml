@@ -1,1 +1,23 @@
-.github/workflows/pages.yml
+name: Deploy GitHub Pages
+
+on:
+  workflow_dispatch:   # 👉 chỉ build khi bạn bấm nút "Run workflow"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: '.'   # thư mục chứa file website của bạn (ví dụ: ./dist nếu Angular/React build ra dist)
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
