@@ -6,23 +6,28 @@ on:
 permissions:
   contents: read
   pages: write
-  id-token: write   # ✅ thêm quyền này để deploy được
+  id-token: write   # ✅ cần cho deploy
   
 jobs:
   deploy:
+    environment:       # 👉 BẮT BUỘC phải khai báo environment
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v4   # ✅ update lên v4
+        uses: actions/checkout@v4
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4   # ✅ update lên v4
+        uses: actions/configure-pages@v4
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3   # ✅ update lên v3 mới nhất
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'   # 👉 nếu web tĩnh thì để thư mục gốc
+          path: '.'   # 👉 web tĩnh thì để gốc
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4   # ✅ update lên v4
+        uses: actions/deploy-pages@v4
